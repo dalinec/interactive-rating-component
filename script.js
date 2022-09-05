@@ -3,30 +3,33 @@ const cardOne = document.querySelector('.card-container-1');
 const cardTwo = document.querySelector('.card-container-2');
 const ratingBtns = document.querySelectorAll('.rating');
 const score = document.querySelector('.score');
-let starsScore = 3;
+const warning = document.querySelector('.warning-msg');
+let starsScore = '';
 
-const handleSubmit = () => {
-  cardOne.classList.add('hide');
-  score.textContent = starsScore;
-  cardTwo.classList.remove('hide');
-};
-
-submitBtn.addEventListener('click', handleSubmit);
-
-const handleRating = (event) => {
+const removeActiveBtn = () => {
   for (btn of ratingBtns) {
     btn.classList.remove('active');
   }
+};
 
-  if (!event.target.classList.contains('active')) {
-    event.target.classList.add('active');
-  } else {
-    event.target.classList.remove('active');
-  }
-
-  starsScore = event.target.textContent;
+const handleRating = (event) => {
+  removeActiveBtn();
+  event.target.classList.add('active');
+  return (starsScore = event.target.innerHTML);
 };
 
 for (btn of ratingBtns) {
   btn.addEventListener('click', handleRating);
 }
+
+const handleSubmit = () => {
+  if (starsScore !== '') {
+    cardOne.classList.add('hide');
+    score.textContent = starsScore;
+    cardTwo.classList.remove('hide');
+  } else {
+    warning.innerHTML = 'Select a rating before submitting!';
+  }
+};
+
+submitBtn.addEventListener('click', handleSubmit);

@@ -18,14 +18,20 @@ const handleRating = (event) => {
     btn.classList.remove('active');
   }
 
-  if (event.target.classList.contains('rating')) {
+  if (!event.target.classList.contains('active')) {
     event.target.classList.add('active');
   } else {
-    event.target.parentElement.classList.add('active');
+    event.target.classList.remove('active');
   }
 
+  // if (event.target.classList.contains('rating')) {
+  //   event.target.classList.add('active');
+  // } else {
+  //   event.target.parentElement.classList.add('active');
   starsScore = event.target.textContent;
 };
+
+// };
 
 for (btn of ratingBtns) {
   btn.addEventListener('click', handleRating);
